@@ -3,9 +3,11 @@ const { v4: uuidv4 } = require('uuid');
 const exercises = [
   {
     text: 'test1',
+    id: '1',
   },
   {
     text: 'test1',
+    id: '2',
   },
 ];
 
@@ -39,9 +41,10 @@ module.exports.patchExerciseById = (req, res) => {
   } = req;
 
   const exerciseIndex = exercises.findIndex(exercise => exercise.id === id);
+  
   if (exerciseIndex === -1) res.status(404).send('exerciseNotFound');
 
   const newExercise = { ...exercises[exerciseIndex], ...body };
+  exercises[exerciseIndex] = newExercise;
   res.status(200).send(newExercise);
 };
-
